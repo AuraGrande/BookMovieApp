@@ -1,0 +1,46 @@
+#headprops {
+    background-color: #222;
+    height: 36px;
+    padding-top: 8px;
+    padding-right: 32px;
+    padding-bottom: 8px;
+    padding-left: 16px;
+}
+
+.tableprops{
+    position:relative;
+    height:100%;
+    width:100%;
+    border-collapse: collapse;
+    text-align: center;
+  }
+
+.rowprops1{
+    position:relative;
+    height:100%;
+    width:76%;
+    border-collapse: collapse;
+    text-align: left;
+}
+.rowprops2{
+    position:relative;
+    height:100%;
+    width:8%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+#logoattribs {
+    margin: auto;
+    width: 35px;
+    height: 35px;
+    background-color:  #ff7f7f;
+    background-image: url(../../assets/logo.svg);
+    background-size: 100% 100%;
+    color: white;
+    animation: logoanimation 8s infinite;
+  }
+  
+  @keyframes logoanimation {
+    50% {transform: rotateY(180deg);}
+  }
