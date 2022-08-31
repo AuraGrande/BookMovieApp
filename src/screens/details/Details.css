@@ -1,0 +1,44 @@
+.backtohome {
+    margin-top: 8px;
+    margin-left: 24px;
+    margin-bottom: 0px;
+    height: 24px;
+}
+
+.mainbody{
+    height: 100%;
+    width: 100%;
+    display: flex
+}
+
+.picturetab{
+    height: 100%;
+    width: 20%;
+    display: flex;
+}
+
+.maintab {
+    height: 100%;
+    width: 60%;
+    display: flex;
+}
+
+.actortab {
+    height: 100%;
+    width: 20%;
+    display: flex;
+}
+
+.plotline {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.ratingattrib {
+    margin-bottom: 16px;
+}
+
+.artist {
+    margin-top: 16px;
+    margin-bottom: 16px;
+}

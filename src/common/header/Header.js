@@ -1,10 +1,11 @@
 import React, { Component, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import './Header.css';
 import LoginRegister from '../LoginRegister/LoginRegister.js';
 
-function Header() {
-    const [isDetailsPage, setBookShowBtnState] = useState(false);
+
+function Header(props) {
 
     const bookShowbtn = (<Button variant="contained" color='primary'>Book Show</Button>);
     const noshowbtn = (<p></p>);
@@ -19,7 +20,7 @@ function Header() {
                         <th className='rowprops1'>
                         </th>
                         <th className='rowprops2'>
-                            { isDetailsPage?bookShowbtn:noshowbtn }
+                            { (props.isDetailsPage === "yes")?bookShowbtn:noshowbtn }
                         </th>
                         <th className='rowprops2'>
                             <LoginRegister />

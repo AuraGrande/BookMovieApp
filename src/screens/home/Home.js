@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import './Home.css';
-import Header from "../../common/header/Header";
-
+import Header from "../../common/header/Header.js";
+import { 
+    Route, 
+    Link, 
+} from 'react-router-dom';
+//import all the core material ui components
 import {
   GridList,
   GridListTile,
@@ -14,12 +18,10 @@ import {
   Button,
   FormControl,
   TextField,
-  Select,
   MenuItem,
   ListItemIcon,
   ListItemText,
   Checkbox,
-  InputLabel,
 } from "@material-ui/core";
 
 import { 
@@ -27,6 +29,8 @@ import {
   createStyles, 
   makeStyles,
 } from "@material-ui/core/styles";
+
+//style for material ui components
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -67,6 +71,8 @@ const MenuProps = {
   variant: "menu"
 };
 
+//main home function, all the code was refactored to use hooks instead of classes
+
 function Home(props){
 
   const [upComingMovie, setUpComingMovie] = useState([]);
@@ -76,9 +82,9 @@ function Home(props){
   const [artistName, setArtistName] = useState([]);
   const classes = useStyles();
 
+  //useEffect is used to retrieve data from the backend
   useEffect(() => {
-    let dataShows = null;
-
+    //fectches movie title, posterURL and movie ID
     fetch(props.baseUrl + "movies/?limit=17", {
       method: "GET",
       headers: {
@@ -88,7 +94,6 @@ function Home(props){
     })
       .then((response) => response.json())
       .then((response) => {
-        //console.log(response.movies);
         let upComingArr = [];
         let movieDeetsArr = [];
         let count = 0;
@@ -100,16 +105,16 @@ function Home(props){
           });
           movieDeetsArr.push({
             id: count,
+            unId: data.id,
             title: data.title,
             poster_url: data.poster_url
           });
           count = count + 1;
         }
-
-        console.log(upComingArr);
         setUpComingMovie(upComingArr);
         setMovieDetails(movieDeetsArr);
-      });
+      })
+      //fetches all the genre information for the filter section
       fetch(props.baseUrl + "genres", {
         method: "GET",
         headers: {
@@ -123,9 +128,9 @@ function Home(props){
           for(let data of response.genres){
             genreOptions.push(data.genre);
           }
-          console.log(genreOptions);
           setGenreOptions(genreOptions);
         })
+      //fetches all the artist names
       fetch(props.baseUrl + "artists", {
         method: "GET",
         headers: {
@@ -141,11 +146,11 @@ function Home(props){
               artistNamer.push(data.first_name + " " + data.last_name);
             }
           }
-          console.log(artistNamer);
           setArtistName(artistNamer);
         })
   }, []);
 
+  //handles the drop down menus
   const handleChange = (event) => {
     const value = event.target.value;
     if (value[value.length - 1] === "all") {
@@ -155,9 +160,10 @@ function Home(props){
     setSelected(value);
   };
 
+  //main jsx code for the home page
   const mainBody = (
         <div>
-            <Header />
+            <Header isDetailsPage="no"/>
             
             <div className="upComingMovies">
                 Upcoming Movies
@@ -178,14 +184,16 @@ function Home(props){
 
             <div className="mainbody">
               <div className="movieTab">
-                <GridList cellHeight={350} cols={4}>
+                <GridList cellHeight={350} cols={4} >
                   {movieDetails.map((data) => (
-                    <GridListTile key={data.id} style={{cursor: 'pointer'}}>
-                      <img src={data.poster_url} alt={data.title} />
-                      <GridListTileBar title={data.title}/>
-                  </GridListTile>
-                ))}
-              </GridList>
+                      <GridListTile key={data.id} style={{cursor: 'pointer'}}>
+                        <Link to={"/movie/" + data.unId}>
+                          <img src={data.poster_url} alt={data.title} width="100%" />
+                        </Link>
+                        <GridListTileBar title={data.title}/>
+                      </GridListTile>
+                  ))}
+                </GridList>
               </div>
 
 
